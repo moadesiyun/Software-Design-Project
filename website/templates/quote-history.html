@@ -1,0 +1,48 @@
+{% extends "base.html" %} {% block title %}Quote History{% endblock %} {% block content
+%}
+<h1>Quote History</h1>
+    <div class="quote-info">
+
+    <h3 class="rnd">This is a summary of all previous, fuel cost quotes for this current user.</h3>
+    <h3 class="rnd">It contains: </h3>
+    <h3 class="rnd">Gallons Requested (numeric, required)</h3>
+    <h3 class="rnd">- Delivery Address (Non-editable, comes from client profile)</h3>
+    <h3 class="rnd">- Delivery Date (Calender, date picker)</h3>
+    <h3 class="rnd">- Suggested Price / gallon (numeric non-editable, price will be calculated by Pricing Module)</h3>
+    <h3 class="rnd">- Total Amount Due (numeric non-editable, calculated (gallons * price))</h3>
+
+</div>
+<div class="container">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Gallons Requested</th>
+          <th>Delivery Address</th>
+          <th>Delivery Date</th>
+          <th>Suggested Price / Gallon</th>
+          <th>Total Amount Due</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2022-03-01</td>
+          <td>100</td>
+          <td>123 Main St, Dallas, TX 75201</td>
+          <td>2022-03-10</td>
+          <td>$2.50</td>
+          <td>$250.00</td>
+        </tr>
+        <tr>
+          <td>2021-12-15</td>
+          <td>200</td>
+          <td>456 2nd St, Houston, TX 77002</td>
+          <td>2021-12-20</td>
+          <td>$2.75</td>
+          <td>$550.00</td>
+        </tr>
+        <!-- ...and so on for all previous fuel quotes... -->
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
