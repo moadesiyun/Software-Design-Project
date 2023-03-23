@@ -3,6 +3,16 @@
 
 <h1>Client Profile</h1>
 <form action="#" method="POST">
+    <h3>First Name*</h3>
+    <input 
+        class="box" id="fname"
+        name="fname" 
+        type="text" 
+        maxlength="50" 
+        oninvalid="this.setCustomValidity('Required')" 
+        oninput="setCustomValidity('')" 
+        placeholder="Enter First Name" required
+        />
     <h3>Last Name*</h3>
     <input 
         class="box" id="lname"
@@ -11,7 +21,7 @@
         maxlength="50" 
         oninvalid="this.setCustomValidity('Required')" 
         oninput="setCustomValidity('')" 
-        placeholder="Enter Full Name" required
+        placeholder="Enter Last Name" required
         />
     <h3>Address Line 1*</h3>
     <input 
