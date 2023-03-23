@@ -104,4 +104,4 @@ def form():
 @login_required
 def history():
     if request.method == 'GET':
-    return render_template("quote-history.html", user=current_user)
+        return render_template("quote-history.html", user=current_user)
