@@ -65,33 +65,4 @@ def sign_up():
 
     return render_template("sign_up.html", user=current_user)
 
-@auth.route('/profile', methods=['GET', 'POST'])
-@login_required
-def profile():
-    if request.method == 'POST':
-        lname = request.form.get('lname')
-        userAddress1 = request.form.get('userAddress1')
-        city = request.form.get('city')
-        zipcode = request.form.get('password2')
-        if len(lname) < 4:
-            flash('Email must be greater than 3 characters.', category='error')
-        elif len(userAddress1) < 2:
-            flash('Enter valid street address', category='error')
-        elif len(city) < 5:
-            flash('Passwords don\'t match.', category='error')
-        elif len(zipcode) < 5:
-            flash('Zipcode must be at least 7 characters.', category='error')
-        else:
-            flash('Profile information updated!', category='success')
-            return redirect(url_for('views.home'))
-    return render_template("profile.html", user=current_user)
 
-@auth.route('/quote-form', methods=['GET', 'POST'])
-@login_required
-def form():
-    return render_template("quote-form.html", user=current_user)
-
-@auth.route('/quote-history', methods=['GET', 'POST'])
-@login_required
-def history():
-    return render_template("quote-history.html", user=current_user)
