@@ -3,16 +3,52 @@
 
 <h1>Client Profile</h1>
 <form action="#" method="POST">
-    <h3>Name*</h3>
-    <input class="box" type="text" maxlength="50" oninvalid="this.setCustomValidity('Required')" oninput="setCustomValidity('')" placeholder="Enter Full Name" required>
+    <h3>Last Name*</h3>
+    <input 
+        class="box" id="lname"
+        name="lname" 
+        type="text" 
+        maxlength="50" 
+        oninvalid="this.setCustomValidity('Required')" 
+        oninput="setCustomValidity('')" 
+        placeholder="Enter Full Name" required
+        />
     <h3>Address Line 1*</h3>
-    <input class="box" type="text" maxlength="100" id="userAddress" oninvalid="this.setCustomValidity('Required')" oninput="setCustomValidity('')" placeholder="Enter Address Line 1" required>
+    <input 
+        class="box" 
+        type="text" 
+        maxlength="100" 
+        name-"userAddress1"
+        id="userAddress1" 
+        oninvalid="this.setCustomValidity('Required')" 
+        oninput="setCustomValidity('')" 
+        placeholder="Enter Address Line 1" required
+        />
     <h3>Address Line 2</h3>
-    <input class="box" type="text" maxlength="100" placeholder="Enter Address Line 2">
+    <input 
+        class="box" 
+        name-"userAddress2"
+        id="userAddress2" 
+        type="text" 
+        maxlength="100" 
+        placeholder="Enter Address Line 2"
+    />
     <h3>City*</h3>
-    <input class="box" type="text" maxlength="100" oninvalid="this.setCustomValidity('Required')" oninput="setCustomValidity('')" placeholder="Enter City" required>
+    <input 
+        class="box" 
+        name-"city"
+        id="city" 
+        type="text" maxlength="100" 
+        oninvalid="this.setCustomValidity('Required')" 
+        oninput="setCustomValidity('')" placeholder="Enter City" required>
     <h3>State*</h3>
-    <select class="box" oninvalid="this.setCustomValidity('Selection required')" oninput="setCustomValidity('')" required>
+    <select 
+        class="box"
+        name-"state"
+        id="state"  
+        oninvalid="this.setCustomValidity('Selection required')" 
+        oninput="setCustomValidity('')" required
+    >
         <option value="" disabled selected>Select State</option>
         <option value="AL">AL</option>
         <option value="AK">AK</option>
@@ -67,7 +103,14 @@
         <option value="WY">WY</option>
     </select>
     <h3>Zip Code*</h3>
-    <input class="box" type="text" minlength="5" maxlength="9" oninvalid="this.setCustomValidity('At least 5 digits required')" oninput="setCustomValidity('')" oninput="setCustomValidity('')" placeholder="Enter Zip Code" required>
+    <input 
+        class="box" 
+        name-"zipcode"
+        id="zipcode" 
+        type="text" 
+        minlength="5" 
+        maxlength="9" 
+        oninvalid="this.setCustomValidity('At least 5 digits required')" oninput="setCustomValidity('')" oninput="setCustomValidity('')" placeholder="Enter Zip Code" required>
     <p>* Required</p>
 <input class="submit" type="submit" value="Save" required> <!-- after save, return to homepage -->
 </form>
