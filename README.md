@@ -5,3 +5,5 @@ pip install -r requirements.txt
 
 run code:
 python main.py
+
+html and css in under website/template/
