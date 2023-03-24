@@ -1,5 +1,5 @@
-from flash import flash, Flask, request, render_template
-from pricingModuleSWD.py import *
+from flask import flash, Flask, request, render_template
+from .pricingModuleSWD import *
 from . import db
 from .client import Client, profiles
 
