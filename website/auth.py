@@ -3,7 +3,7 @@ from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db   ##means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
-
+from .client import Client, profiles
 
 auth = Blueprint('auth', __name__)
 
@@ -43,6 +43,23 @@ def sign_up():
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
         
+        for client in profiles:
+            if client.username == username:
+                flash('Email already exists.', category='error')
+                return render_template("sign_up.html", user=current_user)  
+            else:
+                if len(username) < 4:
+                    flash('Email must be greater than 3 characters.', category='error')
+                elif len(first_name) < 2:
+                    flash('First name must be greater than 1 character.', category='error')
+                elif password1 != password2:
+                    flash('Passwords don\'t match.', category='error')
+                elif len(password1) < 7:
+                    flash('Password must be at least 7 characters.', category='error')
+                else:
+                    new_client = Client(username=username, password=password1)
+                    profiles.append(new_client)
+                    
         if username =="jurnae":
             flash('Username already exists. Please try again.', category='error')
 
@@ -68,15 +85,14 @@ def profile():
         uCity = request.form.get('city')
         st = request.form.get('state')
         zipcd = request.form.get('zipcode')
-        if len(uCity) < 5:
-            flash('Passwords don\'t match.', category='error')
-        elif len(zipcd) < 5:
-            flash('Zipcode must be at least 7 characters.', category='error')
-        else:
-            updated_profile = Profile(fname=fName, lname =lName, userAddress1 =userAdd1, userAddress2 =userAdd2, city=uCity, state=st, zipcode=zipcd, user_id=current_user.id)  #providing the schema for the note 
-            db.session.add(updated_profile) #adding the note to the database 
-            db.session.commit()
-            flash('Profile information updated!', category='success')
+        for client in profiles:
+            if client.username == current_user.email:
+                client.update_profile_info(fname, lname, userAdd1, userAdd2, uCity, st, zipcd)
+                print(client.username, client.password) 
+                updated_profile = Profile(fname=fName, lname =lName, userAddress1 =userAdd1, userAddress2 =userAdd2, city=uCity, state=st, zipcode=zipcd, user_id=current_user.id)  #providing the schema for the note 
+                db.session.add(updated_profile) #adding the note to the database 
+                db.session.commit()
+                flash('Profile information updated!', category='success')
             
     return render_template("profile.html", user=current_user)
 
