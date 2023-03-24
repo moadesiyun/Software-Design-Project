@@ -56,7 +56,7 @@ def sign_up():
         
         user = User.query.filter_by(uname=username).first()
         if user:
-            flash('Email already exists.', category='error')
+            flash('Username already exists.', category='error')
         else:
             new_user = User(uname=username, password=generate_password_hash(
                 password1, method='sha256'))
