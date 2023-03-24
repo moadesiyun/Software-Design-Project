@@ -1,4 +1,10 @@
 profiles = []
+class User( UserMixin):
+    id = primary_key=True
+    email = ""
+    password = ""
+    first_name = ""
+    
 class Client:
     
     
