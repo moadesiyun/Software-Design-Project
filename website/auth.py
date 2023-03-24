@@ -14,7 +14,7 @@ def login():
         # Get data from front end
         username = request.form.get('username')
         password = request.form.get('password')
-
+        user = User.query.filter_by(uname=username).first()
         for client in profiles:
             if client.username == username and client.password == password:
                 if client.logintime == None:
