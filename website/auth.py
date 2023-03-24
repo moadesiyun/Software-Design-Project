@@ -7,6 +7,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 
 auth = Blueprint('auth', __name__)
 
+client_profiles = []
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -64,5 +65,28 @@ def sign_up():
             return redirect(url_for('views.home'))
 
     return render_template("sign_up.html", user=current_user)
+
+@auth.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile():
+    if request.method == 'POST':
+        fName = request.form.get('fname')
+        lName = request.form.get('lname')
+        userAdd1 = request.form.get('userAddress1')
+        userAdd2 = request.form.get('userAddress2')
+        uCity = request.form.get('city')
+        st = request.form.get('state')
+        zipcd = request.form.get('zipcode')
+        if len(uCity) < 5:
+            flash('Passwords don\'t match.', category='error')
+        elif len(zipcd) < 5:
+            flash('Zipcode must be at least 7 characters.', category='error')
+        else:
+            updated_profile = Profile(fname=fName, lname =lName, userAddress1 =userAdd1, userAddress2 =userAdd2, city=uCity, state=st, zipcode=zipcd, user_id=current_user.id)  #providing the schema for the note 
+            db.session.add(updated_profile) #adding the note to the database 
+            db.session.commit()
+            flash('Profile information updated!', category='success')
+            
+    return render_template("profile.html", user=current_user)
 
 
