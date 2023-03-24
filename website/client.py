@@ -1,10 +1,27 @@
+from flask_login import UserMixin
 profiles = []
-#UserMixin 
-class User( ):
-    id = primary_key=True
-    email = ""
-    password = ""
-    first_name = ""
+count=3
+class User():
+    def __init__(self, id, username, active=True):
+        self.id = id
+        self.username = username
+        self.active = active
+
+    def is_active(self):
+        # Here you should write whatever the code is
+        # that checks the database if your user is active
+        # return self.active
+        # for demo i just return True
+        return True 
+    
+    def is_authenticated(self):
+        # for demo i just return True
+        return True
+
+    def get_id(self):
+        # if you do not use Usermixin, this is important
+        # user_loader load_user(id) uses this get_id attribute to load the id
+        return self.id
     
 class Client:
     

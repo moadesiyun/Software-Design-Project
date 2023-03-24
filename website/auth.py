@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
-from .client import Client, profiles
+from .client import Client, profiles, confirmUserLogin
 from datetime import datetime
 
 auth = Blueprint('auth', __name__)
@@ -17,19 +17,22 @@ def login():
 
         for client in profiles:
             if client.username == username and client.password == password:
-             
-                if client.logintime == None:
-                    #first time user detected
+                response = confirmUserLogin(username, password)
+                if response["status"] == True:
+                    login_user(USERS[username])
+                    USERS[username].is_authenticated = True
+                    if client.logintime == None:
+                        #first time user detected
+                        logintime = datetime.now()
+                        client.logintime = logintime
+                        flash('Logged in successfully! Please create your profile.', category='success')
+                        return render_template("profile.html", user=current_user)
+
+                    #take other clients to home page
                     logintime = datetime.now()
                     client.logintime = logintime
-                    flash('Logged in successfully! Please create your profile.', category='success')
-                    return render_template("profile.html", user=current_user)
-
-                #take other clients to home page
-                logintime = datetime.now()
-                client.logintime = logintime
-                flash('Logged in successfully!', category='success')
-                return render_template("home.html", user=current_user)
+                    flash('Logged in successfully!', category='success')
+                    return render_template("home.html", user=current_user)
                 
                
         flash('Credentials are incorrect. Please try again.', category='error')
