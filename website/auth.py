@@ -58,23 +58,24 @@ def sign_up():
         if user:
             flash('Email already exists.', category='error')
         else:
-            for client in profiles:
-                if client.username == username:
-                    ##flash('Username already exists. Please try again', category='error')
-                    return render_template("sign_up.html", user=current_user)
+            new_user = User(uname=username, password=generate_password_hash(
+                password1, method='sha256'))
+            db.session.add(new_user)
+            db.session.commit()
+        
+        for client in profiles:
+            if client.username == username:
+                ##flash('Username already exists. Please try again', category='error')
+                return render_template("sign_up.html", user=current_user)
 
-            if password1 != password2:
-                flash('Passwords don\'t match. Please try again', category='error')
-            else:
-                new_user = User(uname=username, password=generate_password_hash(
-                    password1, method='sha256'))
-                db.session.add(new_user)
-                db.session.commit()
-                new_client = Client(username=username, password=password1, logintime = None)
-                profiles.append(new_client) #persist through db
-                #direct clients to log in for the first time
-                flash('Account created successfully! Please Log in.', category='success')
-                return redirect(url_for('auth.login'))
+        if password1 != password2:
+            flash('Passwords don\'t match. Please try again', category='error')
+        else:
+            new_client = Client(username=username, password=password1, logintime = None)
+            profiles.append(new_client) #persist through db
+            #direct clients to log in for the first time
+            flash('Account created successfully! Please Log in.', category='success')
+            return redirect(url_for('auth.login'))
 
 
             
