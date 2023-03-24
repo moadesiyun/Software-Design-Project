@@ -16,16 +16,12 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
 
-        #hardcoded user and pass for now
-        if username == "jurnae" and password == "jones":
-            flash('Logged in successfully!', category='success')
-            return render_template("home.html", user=current_user)
-            # take to profile page if first time user (login time is not null/None). Get from DB.
-
+        for client in profiles:
+            if client.username == username and client.password == password:
+                flash('Logged in successfully!', category='success')
+                return render_template("home.html", user=current_user)
+               
         flash('Credentials are incorrect. Please try again.', category='error')
-        return render_template("login.html", user=current_user)
-
-    #otherwise, return to login lage
     return render_template("login.html", user=current_user)
 
 @auth.route('/logout')
@@ -45,32 +41,19 @@ def sign_up():
         
         for client in profiles:
             if client.username == username:
-                flash('Email already exists.', category='error')
-                return render_template("sign_up.html", user=current_user)  
-            else:
-                if len(username) < 4:
-                    flash('Email must be greater than 3 characters.', category='error')
-                elif len(first_name) < 2:
-                    flash('First name must be greater than 1 character.', category='error')
-                elif password1 != password2:
-                    flash('Passwords don\'t match.', category='error')
-                elif len(password1) < 7:
-                    flash('Password must be at least 7 characters.', category='error')
-                else:
-                    new_client = Client(username=username, password=password1)
-                    profiles.append(new_client)
-                    
-        if username =="jurnae":
-            flash('Username already exists. Please try again.', category='error')
-
-        elif password1 != password2:
-            flash('Passwords don\'t match. Please try again.', category='error')
-
+                flash('Username already exists. Please try again', category='error')
+                return render_template("sign_up.html", user=current_user)
+              
+        if password1 != password2:
+            flash('Passwords don\'t match. Please try again', category='error')
+            return render_template("sign_up.html", user=current_user)
         else:
+            new_client = Client(username=username, password=password1)
+            profiles.append(new_client) #persist through db
             flash('Account created successfully!', category='success')
-            ''' persist user and pass through the DB here and take back to login page
-             it will go straight to profile page for now '''
             return render_template("profile.html", user=current_user)
+            '''persist user and pass through the DB here and take back to login page
+             it will go straight to profile page for now   '''
 
     return render_template("sign_up.html", user=current_user)
 
