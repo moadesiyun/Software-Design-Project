@@ -1,9 +1,8 @@
-
 #This is a really reallyt rough draft :')
 class PricingModule:
     
-    def __init__(self, currentPrice, userState, numGal):
-        self.currentPrice = currentPrice
+    def __init__(self, userState, numGal):
+        currentPrice = 1.50
         self.userState = userState
         self.numGal = numGal
 

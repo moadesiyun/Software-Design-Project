@@ -1,5 +1,6 @@
 {% extends "base.html" %} {% block title %}Fuel Quote Form{% endblock %} {% block content
     %}
+<form method='POST'
 <h1>Fuel Price Estimator</h1>
 <form>
     <h3>Requested Gallons</h3>
@@ -14,8 +15,7 @@
         <!--Will be displayed without user needing to submit-->
 
         <h3>Suggested Price</h3>
-        <input class="box" type="text" placeholder="Suggested Price Calculated" readonly>
-        <!--Will be displayed without user needing to submit-->
+        <input class="box" type="text" placeholder="Suggested Price Per Gallon" readonly>
 
         <h3>Total Amount Due*</h3>
         <input class="box" type="text" placeholder="Total Amount Due" readonly>
@@ -26,3 +26,4 @@
     </form> 
     <p>* Calculated Upon Completion</p>
     {% endblock %}
+
