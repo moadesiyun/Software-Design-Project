@@ -8,9 +8,10 @@ class User( UserMixin):
 class Client:
     
     
-    def __init__(self, username, password):
+    def __init__(self, username, password, logintime):
         self.username = username
         self.password = password
+        self.logintime = logintime
         self.profile_info = {
             "first_name": "",
             "last_name": "",
