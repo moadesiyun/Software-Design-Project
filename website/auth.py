@@ -8,7 +8,6 @@ from datetime import datetime
 
 auth = Blueprint('auth', __name__)
 
-client_profiles = []
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
