@@ -55,24 +55,27 @@ def sign_up():
         password2 = request.form.get('password2')
         
         user = User.query.filter_by(uname=username).first()
-        for client in profiles:
-            if client.username == username or user:
-                flash('Username already exists. Please try again', category='error')
-                return render_template("sign_up.html", user=current_user)
-              
-        if password1 != password2:
-            flash('Passwords don\'t match. Please try again', category='error')
+        if user:
+            flash('Email already exists.', category='error')
         else:
-            new_user = User(uname=username, password=generate_password_hash(
-                password1, method='sha256'))
-            db.session.add(new_user)
-            db.session.commit()
-            new_client = Client(username=username, password=password1, logintime = None)
-            profiles.append(new_client) #persist through db
-            #direct clients to log in for the first time
-            flash('Account created successfully! Please Log in.', category='success')
-            return redirect(url_for('auth.login'))
-            
+            for client in profiles:
+                if client.username == username:
+                    ##flash('Username already exists. Please try again', category='error')
+                    return render_template("sign_up.html", user=current_user)
+
+            if password1 != password2:
+                flash('Passwords don\'t match. Please try again', category='error')
+            else:
+                new_user = User(uname=username, password=generate_password_hash(
+                    password1, method='sha256'))
+                db.session.add(new_user)
+                db.session.commit()
+                new_client = Client(username=username, password=password1, logintime = None)
+                profiles.append(new_client) #persist through db
+                #direct clients to log in for the first time
+                flash('Account created successfully! Please Log in.', category='success')
+                return redirect(url_for('auth.login'))
+
 
             
     return render_template("sign_up.html", user=current_user)
