@@ -1,5 +1,6 @@
 profiles = []
-class User( UserMixin):
+#UserMixin 
+class User( ):
     id = primary_key=True
     email = ""
     password = ""
