@@ -17,22 +17,18 @@ def login():
 
         for client in profiles:
             if client.username == username and client.password == password:
-                response = confirmUserLogin(username, password)
-                if response["status"] == True:
-                    login_user(USERS[username])
-                    USERS[username].is_authenticated = True
-                    if client.logintime == None:
-                        #first time user detected
-                        logintime = datetime.now()
-                        client.logintime = logintime
-                        flash('Logged in successfully! Please create your profile.', category='success')
-                        return render_template("profile.html", user=current_user)
-
-                    #take other clients to home page
+                if client.logintime == None:
+                    #first time user detected
                     logintime = datetime.now()
                     client.logintime = logintime
-                    flash('Logged in successfully!', category='success')
-                    return render_template("home.html", user=current_user)
+                    flash('Logged in successfully! Please create your profile.', category='success')
+                    return render_template("profile.html", user=current_user)
+
+                    #take other clients to home page
+                logintime = datetime.now()
+                client.logintime = logintime
+                flash('Logged in successfully!', category='success')
+                return render_template("home.html", user=current_user)
                 
                
         flash('Credentials are incorrect. Please try again.', category='error')
