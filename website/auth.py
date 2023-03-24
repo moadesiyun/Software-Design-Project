@@ -4,11 +4,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from . import db   ##means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
 from .client import Client, profiles
+from datetime import datetime
 
 auth = Blueprint('auth', __name__)
 
 client_profiles = []
-
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -18,11 +18,24 @@ def login():
 
         for client in profiles:
             if client.username == username and client.password == password:
+             
+                if client.logintime == None:
+                    #first time user detected
+                    logintime = datetime.now()
+                    client.logintime = logintime
+                    flash('Logged in successfully! Please create your profile.', category='success')
+                    return render_template("profile.html", user=current_user)
+
+                #take other clients to home page
+                logintime = datetime.now()
+                client.logintime = logintime
                 flash('Logged in successfully!', category='success')
                 return render_template("home.html", user=current_user)
+                
                
         flash('Credentials are incorrect. Please try again.', category='error')
     return render_template("login.html", user=current_user)
+    
 
 @auth.route('/logout')
 @login_required
@@ -48,13 +61,13 @@ def sign_up():
             flash('Passwords don\'t match. Please try again', category='error')
             return render_template("sign_up.html", user=current_user)
         else:
-            new_client = Client(username=username, password=password1)
+            new_client = Client(username=username, password=password1, logintime = None)
             profiles.append(new_client) #persist through db
-            flash('Account created successfully!', category='success')
-            return render_template("profile.html", user=current_user)
-            '''persist user and pass through the DB here and take back to login page
-             it will go straight to profile page for now   '''
+            #direct clients to log in for the first time
+            flash('Account created successfully! Please Log in.', category='success')
+            
 
+            
     return render_template("sign_up.html", user=current_user)
 
 @auth.route('/profile', methods=['GET', 'POST'])
