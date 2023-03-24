@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
-from . import db   ##means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
 from .client import Client, profiles
 from datetime import datetime
@@ -83,11 +82,8 @@ def profile():
         zipcd = request.form.get('zipcode')
         for client in profiles:
             if client.username == current_user.email:
-                client.update_profile_info(fname, lname, userAdd1, userAdd2, uCity, st, zipcd)
+                client.update_profile_info(fName, lName, userAdd1, userAdd2, uCity, st, zipcd)
                 print(client.username, client.password) 
-                updated_profile = Profile(fname=fName, lname =lName, userAddress1 =userAdd1, userAddress2 =userAdd2, city=uCity, state=st, zipcode=zipcd, user_id=current_user.id)  #providing the schema for the note 
-                db.session.add(updated_profile) #adding the note to the database 
-                db.session.commit()
                 flash('Profile information updated!', category='success')
             
     return render_template("profile.html", user=current_user)
