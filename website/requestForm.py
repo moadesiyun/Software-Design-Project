@@ -1,6 +1,7 @@
 from flash import flash, Flask, request, render_template
 from pricingModuleSWD.py import *
 from . import db
+from .client import Client, profiles
 
 #placeholder for the users state address
 userstate = "TX"

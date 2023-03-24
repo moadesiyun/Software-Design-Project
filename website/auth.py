@@ -3,7 +3,7 @@ from .models import User
 from . import db 
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
-from .client import Client, profiles, confirmUserLogin
+from .client import Client, profiles
 from datetime import datetime
 
 auth = Blueprint('auth', __name__)
@@ -93,7 +93,6 @@ def profile():
         for client in profiles:
             if client.username == current_user.uname:
                 client.update_profile_info(fName, lName, userAdd1, userAdd2, uCity, st, zipcd)
-                print(client.username, client.password) 
                 flash('Profile information updated!', category='success')
             
     return render_template("profile.html", user=current_user)
