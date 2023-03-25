@@ -1,4 +1,4 @@
-from flask import flash, Flask, request, render_template
+from flask import Blueprint,flash, Flask, request, render_template
 from .pricingModuleSWD import *
 from .client import Client, profiles
 
