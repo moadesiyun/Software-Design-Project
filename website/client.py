@@ -1,4 +1,4 @@
-from flask_login import UserMixin
+
 profiles = []
 
 class Client:
