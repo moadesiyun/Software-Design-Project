@@ -1,5 +1,5 @@
 from flash import flash, Flask, request, render_template
-from pricingModuleSWD.py import *
+import pricingModuleSWD
 from . import db
 
 #placeholder for the users state address

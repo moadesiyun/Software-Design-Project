@@ -1,4 +1,3 @@
-#This is a really reallyt rough draft :')
 class PricingModule:
     
     def __init__(self, userState, numGal):
