@@ -11,7 +11,7 @@ class PricingModule:
         else:
             locationFactor = 0.04
 
-        if (self.numGal > 1000):
+        if (numGal > 1000):
             galReqFactor = 0.02
         else:
             galReqFactor = 0.03
@@ -21,12 +21,12 @@ class PricingModule:
 
         margin = (locationFactor - rateHistFactor + galReqFactor + 0.10) * currentPrice
 
-        suggestedPPG = margin + currentPrice
+        self.suggestedPPG = margin + currentPrice
 
-        totalAmtDue = suggestedPPG * numGal
+        self.totalAmtDue = self.suggestedPPG * numGal
 
-    def getSuggestedPPG():
-        return suggestedPPG
+    def getSuggestedPPG(self):
+        return self.suggestedPPG
 
-    def getTotalAmtDue():
-        return totalAmtDue
+    def getTotalAmtDue(self):
+        return self.totalAmtDue
