@@ -19,7 +19,7 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(requestForm, url_prefix='/')
 
-    from .dbmodels import Client
+    from .dbmodels import ClientDB
 
     with app.app_context():
         db.create_all()
