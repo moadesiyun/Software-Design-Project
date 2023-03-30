@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .client import Client, profiles
+from .dbmodels import Client
+from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 
 auth = Blueprint('auth', __name__)
