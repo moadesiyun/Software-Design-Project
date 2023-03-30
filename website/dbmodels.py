@@ -3,7 +3,7 @@ from flask_login import UserMixin
 from datetime import datetime
 
 
-class Client(db.Model, UserMixin):
+class ClientDB(db.Model, UserMixin):
     Id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique = True)
     password = db.Column(db.String(100))
