@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
+from flask_login import LoginManager
 
 db = SQLAlchemy()
 DATABASE = "database.db"
@@ -23,6 +24,16 @@ def create_app():
 
     with app.app_context():
         db.create_all()
+        
+    loginManager = LoginManager()
+    loginManager.login_view = 'auth.login'
+    loginManager.login_message = "Please Log In or Create an Account."
+    loginManager.login_message_category = "warning"
+    loginManager.init_app(app)
+
+    @loginManager.user_loader
+    def load_user(id):
+        return userCredentials.query.get(int(id))
     
     return app
 
