@@ -103,6 +103,14 @@ def profile():
             print(f"City: {profile.city}")
             print(f"State: {profile.state}")
             print(f"Zipcode: {profile.zipcode}")
+            profile.firstname = fName
+            profile.lastname = lName
+            profile.address1 = userAdd1
+            profile.address2 = userAdd2            
+            profile.city = uCity
+            profile.state = st
+            profile.zipcode = zipcd
+            db.session.commit()
         else:
             # Handle the case where the user doesn't have a profile yet
             new_profile = Profile(firstname=fName, lastname = lName, address1=userAdd1, address2=userAdd2, city=uCity, state=st, zipcode=zipcd, user_id= current_user.id)
