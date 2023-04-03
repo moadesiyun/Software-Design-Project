@@ -3,13 +3,6 @@ from flask_login import UserMixin
 from datetime import datetime
 from sqlalchemy.sql import func
 
-"""
-class ClientProfile(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    data = db.Column(db.String(10000))
-    date = db.Column(db.DateTime(timezone=True), default=func.now())
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-"""
 
 class userCredentials(db.Model, UserMixin):
 
@@ -17,4 +10,16 @@ class userCredentials(db.Model, UserMixin):
     username = db.Column(db.String(100), unique = True)
     password = db.Column(db.String(100))
     loginTime = db.Column(db.Boolean())
-   ## profile = db.relationship('ClientProfile')
+    profile = db.relationship('Profile', backref='user_credentials', uselist=False)
+
+class Profile(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    firstname = db.Column(db.String(20), nullable=False)
+    lastname = db.Column(db.String(30), nullable=False)
+    address1 = db.Column(db.String(100), nullable=False)
+    address2 = db.Column(db.String(100))
+    city = db.Column(db.String(100), nullable=False)
+    state = db.Column(db.String(2), nullable=False)
+    zipcode = db.Column(db.String(9), nullable=False)
+    # Foreign key to link to User model
+    user_id = db.Column(db.Integer, db.ForeignKey('user_credentials.id'), unique=True, nullable=False)

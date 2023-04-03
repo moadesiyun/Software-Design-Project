@@ -1,6 +1,8 @@
 from flask import Blueprint,flash, Flask, request, render_template
 from .pricingModuleSWD import *
 from .client import Client, profiles
+from . import db
+from .dbmodels import userCredentials, Profile
 from flask_login import login_user, login_required, logout_user, current_user
 
 #placeholder for the users state address

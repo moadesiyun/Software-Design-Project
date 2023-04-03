@@ -8,7 +8,7 @@
         class="box" id="fname"
         name="fname" 
         type="text" 
-        maxlength="50" 
+        maxlength="20" 
         oninvalid="this.setCustomValidity('Required')" 
         oninput="setCustomValidity('')" 
         placeholder="Enter First Name" required
@@ -18,7 +18,7 @@
         class="box" id="lname"
         name="lname" 
         type="text" 
-        maxlength="50" 
+        maxlength="30" 
         oninvalid="this.setCustomValidity('Required')" 
         oninput="setCustomValidity('')" 
         placeholder="Enter Last Name" required
@@ -28,7 +28,7 @@
         class="box" 
         type="text" 
         maxlength="100" 
-        name-"userAddress1"
+        name="userAddress1"
         id="userAddress1" 
         oninvalid="this.setCustomValidity('Required')" 
         oninput="setCustomValidity('')" 
@@ -37,7 +37,7 @@
     <h3>Address Line 2</h3>
     <input 
         class="box" 
-        name-"userAddress2"
+        name="userAddress2"
         id="userAddress2" 
         type="text" 
         maxlength="100" 
@@ -46,7 +46,7 @@
     <h3>City*</h3>
     <input 
         class="box" 
-        name-"city"
+        name="city"
         id="city" 
         type="text" maxlength="100" 
         oninvalid="this.setCustomValidity('Required')" 
@@ -54,7 +54,7 @@
     <h3>State*</h3>
     <select 
         class="box"
-        name-"state"
+        name="state"
         id="state"  
         oninvalid="this.setCustomValidity('Selection required')" 
         oninput="setCustomValidity('')" required
@@ -115,12 +115,15 @@
     <h3>Zip Code*</h3>
     <input 
         class="box" 
-        name-"zipcode"
+        name="zipcode"
         id="zipcode" 
         type="text" 
         minlength="5" 
         maxlength="9" 
-        oninvalid="this.setCustomValidity('At least 5 digits required')" oninput="setCustomValidity('')" oninput="setCustomValidity('')" placeholder="Enter Zip Code" required>
+        oninvalid="this.setCustomValidity('Required')" 
+        oninput="setCustomValidity('')"
+        placeholder="Enter Zip Code" required
+    />
     <p>* Required</p>
 <input class="submit" type="submit" value="Save" required> <!-- after save, return to homepage -->
 </form>

@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request, flash
 from flask_login import login_required, current_user
 from .client import Client, profiles
+from . import db
+from .dbmodels import userCredentials, Profile
 from flask_login import login_user, login_required, logout_user, current_user
 import json
 

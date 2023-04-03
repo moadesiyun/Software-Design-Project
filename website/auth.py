@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .client import Client, profiles
-from .dbmodels import userCredentials
+from .dbmodels import userCredentials, Profile
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
@@ -89,10 +89,28 @@ def profile():
         st = request.form.get('state')
         zipcd = request.form.get('zipcode')
         
-        if len(profiles)>1:
-            curr_client = profiles[-1]
-            curr_client.update_profile_info(fName, lName, userAdd1, userAdd2, uCity, st, zipcd)
+        
+        profile = Profile.query.filter_by(user_id=current_user.id).first()
+
+        # Check if the profile exists
+        if profile:
+            # Do something with the profile
+            print(f"Profile for {current_user.username}:")
+            print(f"First Name: {profile.firstname}")
+            print(f"Last Name: {profile.lastname}")
+            print(f"Address 1: {profile.address1}")
+            print(f"Address 2: {profile.address2}")
+            print(f"City: {profile.city}")
+            print(f"State: {profile.state}")
+            print(f"Zipcode: {profile.zipcode}")
+        else:
+            # Handle the case where the user doesn't have a profile yet
+            new_profile = Profile(firstname=fName, lastname = lName, address1=userAdd1, address2=userAdd2, city=uCity, state=st, zipcode=zipcd, user_id= current_user.id)
+            ##userC.profile = new_profile
+            db.session.add(new_profile)
+            db.session.commit()
             flash('Profile information updated!', category='success')
+        
             
     return render_template("profile.html", user=current_user)
 
