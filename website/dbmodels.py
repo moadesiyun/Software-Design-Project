@@ -23,3 +23,15 @@ class Profile(db.Model):
     zipcode = db.Column(db.String(9), nullable=False)
     # Foreign key to link to User model
     user_id = db.Column(db.Integer, db.ForeignKey('user_credentials.id'), unique=True, nullable=False)
+    fuelQuote = db.relationship('QuoteForm', backref='profile')
+
+
+class fuelQuote(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    gallonsRequested = db.column(db.integer)
+    suggestedPPG = db.column(db.integer)
+    #Boolean value stored as: 0:FALSE 1:TRUE
+    #Default set to "new customer" 
+    previousUserStatus = db.column(db.integer, default=0)
+    profile_id = db.Column(db.integer, db.ForeignKey('profile.id'), nullable=False)
+
