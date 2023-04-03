@@ -17,4 +17,4 @@ class userCredentials(db.Model, UserMixin):
     username = db.Column(db.String(100), unique = True)
     password = db.Column(db.String(100))
     loginTime = db.Column(db.Boolean())
-    profile = db.relationship('ClientProfile')
+   ## profile = db.relationship('ClientProfile')
