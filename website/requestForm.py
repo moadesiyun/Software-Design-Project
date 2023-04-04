@@ -1,10 +1,8 @@
-from flask import Blueprint,flash, Flask, request, render_template
-from .pricingModuleSWD import *
-from .client import Client, profiles
-from . import db
-from .dbmodels import userCredentials, Profile
+from flask import Blueprint, flash, request, render_template
 from flask_login import login_user, login_required, logout_user, current_user
-import dbmodels
+from . import db
+from .dbmodels import *
+from .pricingModuleSWD import *
 
 
 requestForm = Blueprint('requestForm', __name__)
@@ -12,7 +10,7 @@ requestForm = Blueprint('requestForm', __name__)
 @requestForm.route('/quote-form', methods=['GET", "POST'])
 def quoteFormSubmission():
     if request.method == 'POST':
-        currentUser = fuelQuote.query.filter_by(username=username).first()
+        currentUser  = Profile.query.filter_by(user_id=current_user.id).first()
         galReq = request.form.get('requestedGallons')
 
         if galReq is None:
