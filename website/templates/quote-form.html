@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block title %}Fuel Quote Form{% endblock %} {% block content
     %}
-<form id = "quote-form" onsubmit="return ajaxpost()" method='POST'>
+<form id = "quote-form" onsubmit="return ajaxpost()" method="POST" action="/get-quote-form">
 <h1>Fuel Price Estimator</h1>
 <form>
     <h3>Requested Gallons</h3>
@@ -11,7 +11,7 @@
     <!deliveryAddress,suggestedPPG,amountDue>
 
         <h3>Delivery Address</h3>
-        <input class="box" type="text" placeholder="deliveryAddressPlaceholder" readonly>
+        <p class="box">{{user.profile.address1}}</p>
 
         <h3>Suggested Price</h3>
         <input class="box" type="text" placeholder="Margin * Price Per Gallon" readonly>

@@ -149,20 +149,31 @@ a:hover {
 
 
 table, th, td {
-border: 1px solid black;
-border-collapse: collapse;
+  border-collapse: collapse;
+}
+table.rounded-corners {
+  border-spacing: 0;
+  border-collapse: separate;
+  border-radius: 10px;
+  border: 1px solid black;
 }
 th{
   background-color:#9C2D1C;
+  border: 1px solid #ddd;
+  color: #DD5540 !important;
+  padding: 10px;
+}
+tr:nth-child(even){background-color: #DDE3E0;}
+tr{
+  background-color:#F4F6F5
 }
 td{
-  background-color: #DDE3E0;
+  
+  border: 1px solid #ddd;
+  padding: 10px;
+  color: #DD5540 !important;
 }
-th, td {
-padding: 10px;
-color: #DD5540 !important;
-}
-
+  
 .center {
   margin: 20px;
 	text-align: center;

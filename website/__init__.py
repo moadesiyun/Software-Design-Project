@@ -20,7 +20,7 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(requestForm, url_prefix='/')
 
-    from .dbmodels import userCredentials, Profile
+    from .dbmodels import userCredentials, Profile, fuelQuote
 
     with app.app_context():
         db.create_all()

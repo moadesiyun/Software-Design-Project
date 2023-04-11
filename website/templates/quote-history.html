@@ -18,6 +18,7 @@
   <h3 class="rnd">- Total Amount Due</h3>
 
 </div>
+{%if fuel_quote_history%}
 <div class="generateTable">
   <table class ="genTbl">
     <thead>
@@ -35,14 +36,15 @@
       <tr>
         <td>{{ quote.date }}</td>
         <td>{{ quote.gallons }}</td>
-        <td>{{ quote.address }}</td>
+        <td>{{ user.profile.address1 }}</td>
         <td>{{ quote.delivery_date }}</td>
-        <td>{{ quote.msrp }}</td>
-        <td>{{ quote.total_price }}</td>
+        <td>{{ quote.sugppg }}</td>
+        <td>{{ quote.totaldue }}</td>
       </tr>
       {% endfor %}
       <!-- ...and so on for all previous fuel quotes... -->
     </tbody>
   </table>
 </div>
+{%endif%}
 {% endblock %}

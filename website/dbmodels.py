@@ -14,7 +14,7 @@ class userCredentials(db.Model, UserMixin):
     #Setting as parent to profile
     profile = db.relationship('Profile', backref='user_credentials', uselist=False)
     #Setting as parent to fuelQuote
-    fuelquote = db.relationsip('fuelQuote', backref="user_credentials2", uselist=False)
+    fuelquotes = db.relationship('fuelQuote', backref='user_credentials')
 
 class Profile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -27,20 +27,18 @@ class Profile(db.Model):
     zipcode = db.Column(db.String(9), nullable=False)
     # Foreign key to link to User model
     user_id = db.Column(db.Integer, db.ForeignKey('user_credentials.id'), unique=True, nullable=False)
-    #Setting as parent to fuelQuote
-    fuelQuoteID = db.relationship('QuoteForm', backref='profile')
 
 
 class fuelQuote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    gallonsRequested = db.column(db.integer)
-    suggestedPPG = db.column(db.integer)
+    gallons = db.Column(db.Integer,nullable=False)
+    sugppg = db.Column(db.Integer,nullable=False)
+    date = db.Column(db.String(20), nullable=False)
+    delivery_date = db.Column(db.String(20), nullable=False)
     #Boolean value stored as: 0:FALSE 1:TRUE
     #Default set to "new customer" 
-    previousUserStatus = db.column(db.integer, default=0)
-    TotalAmountDue = db.column(db.integer)
+    ##previous_status = db.Column(db.Integer)
+    totaldue = db.Column(db.Integer, nullable=False)
 
     #Setting child ID as child column
-    profile_id = db.Column(db.integer, db.ForeignKey('profile.id'), nullable=False)
-    usercredentials = db.Column(db.integer, db.ForeignKey('user_credentials2'), unique=True, nullable=False)
-
+    user_id = db.Column(db.Integer, db.ForeignKey('user_credentials.id'), nullable=False)

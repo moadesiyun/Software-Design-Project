@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% block title %}Current Profile{% endblock %} {% block content
+    %}
+    <form method="GET" action="/profile">
+        <button type="submit" class="genTbl">Edit Profile</button>
+      </form>
+    
+    <h1>Client Profile</h1>
+       
+    <span >
+        <h2 class="box">This is the user profile for user: {{user.username}}
+        <br>
+        
+        <h3>First Name</h3>
+        <p class="box">{{user.profile.firstname}}</p>
+
+        <h3>Last Name</h3>
+        <p style class="box">{{user.profile.lastname}}</p>
+
+        <h3>Address Line 1</h3>
+        <p style class="box">{{user.profile.address1}}</p>
+
+        {%if user.profile.address2%}
+            <h3>Address Line 2</h3>
+            <p style class="box">{{user.profile.address2}}</p>
+        {%endif%}
+        <h3>City</h3>
+        <p style class="box">{{user.profile.city}}</p>
+        <h3>State</h3>
+        <p style class="box">{{user.profile.state}}</p>
+        <h3>Zip Code</h3>
+        <p style class="box">{{user.profile.zipcode}}</p>
+
+    
+    </span> 
+
+    
+    {% endblock %}
+    
