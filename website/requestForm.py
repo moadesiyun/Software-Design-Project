@@ -7,7 +7,7 @@ from .pricingModuleSWD import *
 
 requestForm = Blueprint('requestForm', __name__)
 
-@requestForm.route('/quote-form', methods=['GET", "POST'])
+@requestForm.route('/quote-form', methods=['GET', 'POST'])
 def quoteFormSubmission():
     if request.method == 'POST':
         currentUser  = Profile.query.filter_by(user_id=current_user.id).first()
