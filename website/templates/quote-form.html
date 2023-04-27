@@ -3,6 +3,23 @@
 <form id = "quote-form" onsubmit="return ajaxpost()" method="POST" action="/get-quote-form">
 <h1>Fuel Price Estimator</h1>
 <form>
+    {%if sugg and total%}
+    <h3>Requested Gallons</h3>
+    <input class="box" type="text" name="requestedGallons" id="requestedGallons" oninvalid="this.setCustomValidity('Required')" oninput="setCustomValidity('')" placeholder={{gallons}} required>
+    
+    <h3>Delivery Date</h3>
+    <input class="box" type="date" name="deliveryDate" id="deliveryDate" minvalue="2000-01-01" oninvalid="this.setCustomValidity('Required')" oninput="setCustomValidity('')" required>
+    <!deliveryAddress,suggestedPPG,amountDue>
+
+    <h3>Delivery Address</h3>
+    <p class="box">{{user.profile.address1}}</p>
+
+    <h3>Suggested Price</h3>
+    <p class="box">{{sugg}}</p>
+
+    <h3>Total Amount Due*</h3>
+    <p class="box">{{total}}</p>
+    {%else%}
     <h3>Requested Gallons</h3>
     <input class="box" type="text" name="requestedGallons" id="requestedGallons" oninvalid="this.setCustomValidity('Required')" oninput="setCustomValidity('')" placeholder="Enter Gallon Amount" required>
     
@@ -18,8 +35,10 @@
 
     <h3>Total Amount Due*</h3>
     <input class="box" type="text" placeholder="Gallons Requested * Suggested Price" readonly>
-
-    <br><br><input class="submit" type="submit" value="Enter" required>  
+    {%endif%}
+    <br><br>
+    <input class="submit" type="submit" value="Get Quote" name="action1" required> 
+    <input class="submit" type="submit" value="Submit" name="action2" required>  
 
 </form> 
 <p>* Calculated Upon Completion</p>

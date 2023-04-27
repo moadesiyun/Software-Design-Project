@@ -1,4 +1,4 @@
-from flask import Blueprint, flash, request, render_template
+from flask import Blueprint, flash, request, render_template, redirect, url_for
 from flask_login import login_user, login_required, logout_user, current_user
 from . import db
 from .dbmodels import *
@@ -42,14 +42,18 @@ def quote_form():
 
         suggestedPrice = currentForm.getSuggestedPPG()
         totalAmtDue = currentForm.getTotalAmtDue()
-        
-        newQuoteForm = fuelQuote(gallons = galReq, sugppg = suggestedPrice,date = date.today(),delivery_date =deliverydate,address= currentUser.address1,  totaldue = totalAmtDue, user_id=current_user.id)
-        db.session.add(newQuoteForm)
-        db.session.commit()
-        msg = 'Quote Generated!'
-        msg2 = ' Your total due for '+ str(galReq) + ' gallons is: '+ str(totalAmtDue) 
-        flash(msg, category='success')
-        flash(msg2, category='success')
+        if request.form.get('action2') == 'Submit':
+            newQuoteForm = fuelQuote(gallons = galReq, sugppg = suggestedPrice,date = date.today(),delivery_date =deliverydate,address= currentUser.address1,  totaldue = totalAmtDue, user_id=current_user.id)
+            db.session.add(newQuoteForm)
+            db.session.commit()
+            msg = 'Quote Saved!'
+            msg2 = ' Your total calculated for '+ str(galReq) + ' gallons is: '+ str(totalAmtDue) 
+            flash(msg, category='success')
+            flash(msg2, category='success')
+        if request.form.get('action1') == 'Get Quote':
+            msg = 'Quote Generated!'
+            flash(msg, category='success')
+            return render_template("quote-form.html",user=current_user, total = totalAmtDue, sugg=suggestedPrice, gallons =galReq)
         
 
     return render_template("quote-form.html",user=current_user)
