@@ -1,6 +1,6 @@
 class PricingModule:
     
-    def __init__(self, userState, numGal):
+    def __init__(self, userState, numGal, rateHist):
         currentPrice = 1.50
         self.userState = userState
         self.numGal = numGal
@@ -17,13 +17,14 @@ class PricingModule:
             galReqFactor = 0.03
 
         #Hard code user to be previous client
-        rateHistFactor = 0.01
+        rateHistFactor = rateHist
 
         margin = (locationFactor - rateHistFactor + galReqFactor + 0.10) * currentPrice
 
         self.suggestedPPG = margin + currentPrice
 
-        self.totalAmtDue = self.suggestedPPG * numGal
+        self.totalAmtDue = round(self.suggestedPPG * numGal,2)
+        
 
     def getSuggestedPPG(self):
         return self.suggestedPPG

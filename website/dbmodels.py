@@ -35,6 +35,7 @@ class fuelQuote(db.Model):
     sugppg = db.Column(db.Integer,nullable=False)
     date = db.Column(db.String(20), nullable=False)
     delivery_date = db.Column(db.String(20), nullable=False)
+    address = db.Column(db.String(100), nullable=False)
     #Boolean value stored as: 0:FALSE 1:TRUE
     #Default set to "new customer" 
     ##previous_status = db.Column(db.Integer)
