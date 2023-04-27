@@ -4,24 +4,26 @@ class PricingModule:
         currentPrice = 1.50
         self.userState = userState
         self.numGal = numGal
+        self.locationFactor = 0
+        self.galReqFactor = 0
 
         if (userState == "TX"):
-            locationFactor = 0.02
+            self.locationFactor = 0.02
 
         else:
-            locationFactor = 0.04
+            self.locationFactor = 0.04
 
         if (numGal > 1000):
-            galReqFactor = 0.02
+            self.galReqFactor = 0.02
         else:
-            galReqFactor = 0.03
+            self.galReqFactor = 0.03
 
         #Hard code user to be previous client
         rateHistFactor = rateHist
 
-        margin = (locationFactor - rateHistFactor + galReqFactor + 0.10) * currentPrice
+        self.margin = (self.locationFactor - self.rateHistFactor + self.galReqFactor + 0.10) * self.currentPrice
 
-        self.suggestedPPG = margin + currentPrice
+        self.suggestedPPG = self.margin + self.currentPrice
 
         self.totalAmtDue = round(self.suggestedPPG * numGal,2)
         
@@ -31,3 +33,9 @@ class PricingModule:
 
     def getTotalAmtDue(self):
         return self.totalAmtDue
+
+    def getLocationFactor(self):
+        return self.locationFactor
+    
+    def getGalReqFactor(self):
+        return self.galReqFactor
