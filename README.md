@@ -10,5 +10,5 @@ css: under website/static/css/style.css
 
 js: under website/static/script.js
 
-views.py: initaiizes html pages in python application,  
+auth.py, views.py, requestForm.py: initaiizes routes for html pages in python application,  
           can edit to add GET and POST feature for different html pages.
