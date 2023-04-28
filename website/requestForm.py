@@ -36,6 +36,8 @@ def quote_form():
             galReq = int(galReq)
         except:
             flash('Gallons requested must be a number greater than zero', category='error')
+        if(currUser.address1 is None):
+            flash('Must have address present in profile', category='error')
         
         
         currentForm = PricingModule(currentUser.state, galReq, rateHistFactor)
