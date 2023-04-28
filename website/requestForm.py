@@ -49,7 +49,7 @@ def quote_form():
             db.session.add(newQuoteForm)
             db.session.commit()
             msg = 'Quote Saved!'
-            msg2 = ' Your total calculated for '+ str(galReq) + ' gallons is: '+ str(totalAmtDue) 
+            msg2 = ' Your total calculated for '+ str(galReq) + ' gallons is: $'+ str(totalAmtDue) 
             flash(msg, category='success')
             flash(msg2, category='success')
         if request.form.get('action1') == 'Get Quote':
