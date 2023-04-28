@@ -1,11 +1,12 @@
 class PricingModule:
     
     def __init__(self, userState, numGal, rateHist):
-        currentPrice = 1.50
+        self.currentPrice = 1.50
         self.userState = userState
         self.numGal = numGal
         self.locationFactor = 0
         self.galReqFactor = 0
+        self.rateHistFactor = rateHist
 
         if (userState == "TX"):
             self.locationFactor = 0.02
@@ -17,9 +18,6 @@ class PricingModule:
             self.galReqFactor = 0.02
         else:
             self.galReqFactor = 0.03
-
-        #Hard code user to be previous client
-        rateHistFactor = rateHist
 
         self.margin = (self.locationFactor - self.rateHistFactor + self.galReqFactor + 0.10) * self.currentPrice
 
