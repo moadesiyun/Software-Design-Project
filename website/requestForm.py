@@ -24,6 +24,11 @@ def quote_form():
         deliverydate = request.form.get('deliveryDate')
         Curruser = userCredentials.query.filter_by(id=current_user.id).first()
         fuelquotes = Curruser.fuelquotes
+        address = ""
+        if currentUser is None:
+            pass
+        else:
+            address +=  currentUser.address1
         if fuelquotes is None:
             rateHistFactor = 0
         else:
@@ -31,31 +36,32 @@ def quote_form():
         
         if galReq is None:
             flash('Must specify number of gallons', category='error')
-        
-        try:
-            galReq = int(galReq)
-        except:
-            flash('Gallons requested must be a number greater than zero', category='error')
-        if(currUser.address1 is None):
-            flash('Must have address present in profile', category='error')
-        
-        
-        currentForm = PricingModule(currentUser.state, galReq, rateHistFactor)
 
-        suggestedPrice = currentForm.getSuggestedPPG()
-        totalAmtDue = currentForm.getTotalAmtDue()
-        if request.form.get('action2') == 'Submit':
-            newQuoteForm = fuelQuote(gallons = galReq, sugppg = suggestedPrice,date = date.today(),delivery_date =deliverydate,address= currentUser.address1,  totaldue = totalAmtDue, user_id=current_user.id)
-            db.session.add(newQuoteForm)
-            db.session.commit()
-            msg = 'Quote Saved!'
-            msg2 = ' Your total calculated for '+ str(galReq) + ' gallons is: $'+ str(totalAmtDue) 
-            flash(msg, category='success')
-            flash(msg2, category='success')
-        if request.form.get('action1') == 'Get Quote':
-            msg = 'Quote Generated!'
-            flash(msg, category='success')
-            return render_template("quote-form.html",user=current_user, total = totalAmtDue, sugg=suggestedPrice, gallons =galReq)
+        if(int(galReq) <= 0):
+            flash('Gallons requested must be a number greater than zero', category='error')
         
+        else:
+            if(address == ""):
+                flash('Must enter address in profile', category = 'error')
+            else: 
+                galReq = int(galReq)
+                
+                currentForm = PricingModule(currentUser.state, galReq, rateHistFactor)
+
+                suggestedPrice = currentForm.getSuggestedPPG()
+                totalAmtDue = currentForm.getTotalAmtDue()
+                if request.form.get('action2') == 'Submit':
+                    newQuoteForm = fuelQuote(gallons = galReq, sugppg = suggestedPrice,date = date.today(),delivery_date =deliverydate,address= currentUser.address1,  totaldue = totalAmtDue, user_id=current_user.id)
+                    db.session.add(newQuoteForm)
+                    db.session.commit()
+                    msg = 'Quote Saved!'
+                    msg2 = ' Your total calculated for '+ str(galReq) + ' gallons is: $'+ str(totalAmtDue) 
+                    flash(msg, category='success')
+                    flash(msg2, category='success')
+                if request.form.get('action1') == 'Get Quote':
+                    msg = 'Quote Generated!'
+                    flash(msg, category='success')
+                    return render_template("quote-form.html",user=current_user, total = totalAmtDue, sugg=suggestedPrice, gallons =galReq)
+                
 
     return render_template("quote-form.html",user=current_user)

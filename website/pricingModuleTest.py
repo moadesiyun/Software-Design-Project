@@ -1,7 +1,5 @@
 import unittest
-from pricingModuleSWD import *
-
-#Gwyn can work on this file
+from .pricingModuleSWD import *
 
 class testPricingModule(unittest.TestCase):
     def test_location_factor_TX(self):
@@ -36,4 +34,7 @@ class testPricingModule(unittest.TestCase):
         #Expected total amount due = 8,550
         self.assertEqual(testUser.getTotalAmtDue(), 8550, "Incorect Total for test user")
 
-unittest.main()
+
+if __name__ == '__main__':
+    unittest.main()
+
