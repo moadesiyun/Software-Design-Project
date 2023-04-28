@@ -25,6 +25,11 @@ def quote_form():
         Curruser = userCredentials.query.filter_by(id=current_user.id).first()
         fuelquotes = Curruser.fuelquotes
         address = ""
+        delivery_day = datetime.strptime(deliverydate, '%Y-%m-%d').date()
+        current_date = datetime.now().date()    
+        if delivery_day < current_date:
+            flash('Delivery date cannot be before the current day',category='error')
+            return redirect(url_for('requestForm.quote_form'))
         if currentUser is None:
             pass
         else:
