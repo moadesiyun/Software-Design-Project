@@ -15,10 +15,10 @@
     <p class="box">{{user.profile.address1}}</p>
 
     <h3>Suggested Price</h3>
-    <p class="box">{{sugg}}</p>
+    <p class="box">${{sugg}}</p>
 
     <h3>Total Amount Due*</h3>
-    <p class="box">{{total}}</p>
+    <p class="box">${{total}}</p>
     {%else%}
     <h3>Requested Gallons</h3>
     <input class="box" type="text" name="requestedGallons" id="requestedGallons" oninvalid="this.setCustomValidity('Required')" oninput="setCustomValidity('')" placeholder="Enter Gallon Amount" required>
